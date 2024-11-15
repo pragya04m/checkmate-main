@@ -1,19 +1,16 @@
 "use client";
 import { useTasks } from "@/context/taskContext";
 import { useUserContext } from "@/context/userContext";
-import { github, moon, profile } from "@/utils/Icons";
-import Link from "next/link";
+import { moon, profile } from "@/utils/Icons";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 function Header() {
   const { user } = useUserContext();
-  const { openModalForAdd, activeTasks } = useTasks();
+  const { openModalForAdd, activeTasks = [] } = useTasks() || {}; // Provide default value for activeTasks
 
   const router = useRouter();
-
   const { name } = user;
-
   const userId = user._id;
 
   return (
@@ -23,7 +20,7 @@ function Header() {
           <span role="img" aria-label="wave">
             👋
           </span>
-          {userId ? `Welcome, ${name}!` : "Welcome to Taskfyer"}
+          {userId ? `Welcome, ${name}!` : "Welcome to CheckMate- Task Manager"}
         </h1>
         <p className="text-sm">
           {userId ? (
@@ -55,33 +52,12 @@ function Header() {
         </button>
 
         <div className="flex gap-4 items-center">
-          <Link
-            href="https://github.com/Maclinz/taskfyer"
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#E6E6E6]"
-          >
-            {github}
-          </Link>
-          <Link
-            href="https://github.com/Maclinz/taskfyer"
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#E6E6E6]"
-          >
+          <div className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#E6E6E6]">
             {moon}
-          </Link>
-          <Link
-            href="https://github.com/Maclinz/taskfyer"
-            passHref
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#E6E6E6]"
-          >
+          </div>
+          <div className="h-[40px] w-[40px] text-purple-500 rounded-full flex items-center justify-center text-lg border-2 border-[#E6E6E6]">
             {profile}
-          </Link>
+          </div>
         </div>
       </div>
     </header>
